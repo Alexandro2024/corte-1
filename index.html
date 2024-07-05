@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Cortes de Cabelo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 5px solid #4CAF50; /* Borda inicial */
+            transition: border-color 0.5s ease; /* Transição suave para a mudança de cor */
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #nome {
+            max-width: calc(100% - 22px); /* Ajuste para alinhar com os outros campos */
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ff9800;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- App de Agendamento de Cortes de Cabelo -->
+    <div class="container" id="agendamentoApp">
+        <div class="logo">
+            <img src="caminho/para/sua/logomarca.png" alt="Logomarca">
+        </div>
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="corte">Escolha o Corte:</label>
+            <select id="corte">
+                <option value="Corte Simples - R$20">Corte Simples - R$20</option>
+                <option value="Corte Degradê - R$30">Corte Degradê - R$30</option>
+                <option value="Corte Navalhado - R$40">Corte Navalhado - R$40</option>
+            </select>
+        </div>
+        <button class="button" onclick="agendarCorte()">Agendar</button>
+    </div>
+    <br><br>
+
+    <!-- App de Recebimento de Agendamentos -->
+    <div class="container" id="recebimentoApp">
+        <h2>Receber Agendamento</h2>
+        <div id="alert" class="alert"></div>
+        <button class="button" onclick="enviarParaWhatsApp()">Enviar para WhatsApp</button>
+    </div>
+
+    <script>
+        function agendarCorte() {
+            const nome = document.getElementById('nome').value;
+            const corte = document.getElementById('corte').value;
+
+            if (nome && corte) {
+                const mensagem = `Agendamento realizado por ${nome} para o corte: ${corte}`;
+                document.getElementById('alert').innerText = mensagem;
+                document.getElementById('alert').style.display = 'block';
+                apitarVibrar();
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        }
+
+        function apitarVibrar() {
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    navigator.vibrate(200);
+                    const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
+                    audio.play();
+                }, i * 300);
+            }
+        }
+
+        function enviarParaWhatsApp() {
+            const mensagem = document.getElementById('alert').innerText;
+            const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Função para mudar a cor da borda
+        function mudarCorBorda() {
+            const container = document.querySelectorAll('.container');
+            const cores = ['#4CAF50', '#ff9800', '#00bcd4', '#e91e63', '#9c27b0'];
+            let indice = 0;
+
+            setInterval(() => {
+                container.forEach(cont => {
+                    cont.style.borderColor = cores[indice];
+                });
+                indice = (indice + 1) % cores.length;
+            }, 1000);
+        }
+
+        // Chama a função para mudar a cor da borda
+        mudarCorBorda();
+    </script>
+</body>
+</html>
