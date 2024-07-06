@@ -10,13 +10,11 @@
             margin: 0;
             padding: 20px;
             background-image: url('f821df0dbace25474f7cb71f438b3c60.jpg');
-           
             background-size: cover;
             background-position: center;
         }
         .container {
             background-image: url('f821df0dbace25474f7cb71f438b3c60.jpg');
-           
             max-width: 500px;
             margin: 0 auto;
             padding: 20px;
@@ -74,7 +72,7 @@
             margin-bottom: 20px;
         }
         .logo img {
-            max-width: 30%;
+            max-width: 50%;
             height: auto;
         }
         .obs {
@@ -116,7 +114,7 @@
         </div>
         <button class="button" onclick="agendarCorte()">Agendar</button>
         <div class="obs">
-            <strong>Observação:</strong> Comparecer na barbearia somente no horário agendado.  (Por Favor, Só Agende Seu Horário Se Realmente For Cortar o Cabelo, Pois Os Horários Não Ficam Disponíveis Após o Agendamento!)
+            <strong>Observação:</strong> Comparecer na barbearia somente no horário agendado.  (Por Favor, Só Agende Seu Horário Se Realmente For Cortar o Cabelo, Pois Os Horários Não Ficam Disponíveis Após o Agendamento!) Se Não Tiver Mais Horário Disponível No Site, Compareça Na Barbearia.
         </div>
         <div class="closed" id="closedMessage"></div>
     </div>
@@ -133,6 +131,7 @@
         const horarios = ["09:30", "11:00", "12:30", "14:00", "15:30", "17:00", "18:30", "19:30", "20:30", "21:30", "22:30"];
         const diasFuncionamento = [1, 2, 3, 4, 5, 6]; // Segunda (1) a Sábado (6)
         const horarioAbertura = "09:00"; // Horário de abertura
+        const whatsappNumber = "5511999999999"; // Número de telefone do WhatsApp (exemplo: +55 11 99999-9999)
 
         function loadHorarios() {
             const selectHorario = document.getElementById('horario');
@@ -194,6 +193,9 @@
                 document.getElementById('alert').style.display = 'block';
                 apitarVibrar();
                 loadHorarios();  // Atualiza a lista de horários disponíveis
+
+                // Enviar para WhatsApp automaticamente
+                enviarParaWhatsApp(mensagem);
             } else {
                 alert('Por favor, preencha todos os campos.');
             }
@@ -209,9 +211,8 @@
             }
         }
 
-        function enviarParaWhatsApp() {
-            const mensagem = document.getElementById('alert').innerText;
-            const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+        function enviarParaWhatsApp(mensagem) {
+            const url = `https://wa.me/${5521992020226}?text=${encodeURIComponent(mensagem)}`;
             window.open(url, '_blank');
         }
 
